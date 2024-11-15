@@ -2,12 +2,16 @@
 #define SENSE_PIN1 32       // Analog pin to sense current in wire 1
 #define SENSE_PIN2 33       // Analog pin to sense current in wire 2
 
+#define OUTPUT_PIN2 4
+
 void setup() {
   Serial.begin(115200);
 
   // Set up OUTPUT_PIN to provide power
   pinMode(OUTPUT_PIN, OUTPUT);
   digitalWrite(OUTPUT_PIN, HIGH);  // Turn on power to the breadboard
+
+  pinMode(OUTPUT_PIN2, OUTPUT);
 
   // Set up sense pins as inputs
   pinMode(SENSE_PIN1, INPUT);
@@ -24,8 +28,10 @@ void loop() {
 
   if ((voltage1 > 1) && (voltage2 > 1)) {
     Serial.println("CORRECT KEY");
+    digitalWrite(OUTPUT_PIN2, HIGH);
   } else {
     Serial.println("WRONG KEY");
+    digitalWrite(OUTPUT_PIN2, LOW);
   }
 
   delay(1000);  // Wait a second before reading again
